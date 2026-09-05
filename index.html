@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MY&U - ملابس أطفال</title>
+  
+  <!-- Meta Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'YOUR_PIXEL_ID_HERE');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"/>
+  </noscript>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0a0a0a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 12px;
+    }
+
+    .container {
+      max-width: 480px;
+      width: 100%;
+      background: #111111;
+      border-radius: 32px;
+      padding: 20px 18px 28px;
+      border: 1px solid #2a2a2a;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+      animation: fadeUp 0.6s ease-out;
+    }
+
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .logo {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      border-radius: 50%;
+      background: #0a0a0a;
+      border: 2px solid #ff3333;
+      padding: 4px;
+      margin-bottom: 4px;
+    }
+
+    .brand {
+      font-size: 2rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #ff3333, #3366ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .sub {
+      color: #6688aa;
+      font-size: 0.85rem;
+      border-top: 1px solid #2a2a2a;
+      padding-top: 8px;
+      margin-top: 4px;
+    }
+
+    /* ===== PRODUCT DISPLAY ===== */
+    .product-area {
+      background: #0a0a0a;
+      border-radius: 24px;
+      padding: 12px;
+      border: 1px solid #2a2a2a;
+      margin-bottom: 14px;
+    }
+
+    .flip-container {
+      perspective: 1000px;
+      width: 100%;
+      aspect-ratio: 1/1;
+      cursor: pointer;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .flipper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+      transform-style: preserve-3d;
+    }
+
+    .flip-container.flipped .flipper {
+      transform: rotateY(180deg);
+    }
+
+    .front, .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .front {
+      background: #0a0a0a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .front img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 8px;
+    }
+
+    .back {
+      background: linear-gradient(145deg, #1a0a0a, #0a0a1a);
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+      border: 2px solid #ff3333;
+    }
+
+    .back h3 {
+      color: #ffffff;
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+
+    .back .price-tag {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff3333, #3366ff);
+      color: #ffffff;
+      padding: 6px 28px;
+      border-radius: 60px;
+      margin-top: 6px;
+    }
+
+    /* ===== NAVIGATION ===== */
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin: 12px 0 6px;
+    }
+
+    .nav-btn {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 60px;
+      padding: 10px 22px;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: 0.2s;
+      flex: 1;
+      max-width: 120px;
+    }
+
+    .nav-btn:hover {
+      background: #ff3333;
+      border-color: #ff3333;
+      transform: scale(1.02);
+    }
+
+    /* ===== STEP INDICATORS ===== */
+    .steps {
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      margin: 16px 0 12px;
+    }
+
+    .step {
+      flex: 1;
+      text-align: center;
+      padding: 8px 4px;
+      border-radius: 60px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #445566;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      transition: 0.3s;
+    }
+
+    .step.active {
+      background: linear-gradient(135deg, #ff3333, #3366ff);
+      color: #ffffff;
+      border-color: #ff3333;
+      box-shadow: 0 0 20px rgba(255, 50, 50, 0.15);
+    }
+
+    .step.done {
+      background: #3366ff;
+      color: #ffffff;
+      border-color: #3366ff;
+      opacity: 0.7;
+    }
+
+    /* ===== AGE SELECTOR ===== */
+    .age-selector {
+      background: #1a1a1a;
+      border-radius: 60px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid #2a2a2a;
+      margin: 10px 0;
+    }
+
+    .age-selector label {
+      color: #aabbdd;
+      font-weight: 600;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    .age-selector select {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 40px;
+      border: 1px solid #333;
+      background: #0a0a0a;
+      color: #ffffff;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .age-selector select:focus {
+      border-color: #ff3333;
+    }
+
+    /* ===== ORDER FORM ===== */
+    .form-area {
+      background: #1a1a1a;
+      border-radius: 24px;
+      padding: 16px;
+      border: 1px solid #2a2a2a;
+      margin: 12px 0;
+    }
+
+    .form-group {
+      margin-bottom: 10px;
+    }
+
+    .form-group label {
+      display: block;
+      color: #aabbdd;
+      font-weight: 600;
+      font-size: 0.8rem;
+      margin-bottom: 3px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px 16px;
+      border-radius: 40px;
+      border: 1px solid #333;
+      background: #0a0a0a;
+      color: #ffffff;
+      font-size: 0.95rem;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #3366ff;
+    }
+
+    .form-group textarea {
+      border-radius: 20px;
+      min-height: 50px;
+      resize: vertical;
+    }
+
+    /* ===== FINAL PRICE DISPLAY ===== */
+    .final-price {
+      text-align: center;
+      background: #0a0a0a;
+      border-radius: 60px;
+      padding: 12px;
+      border: 1px solid #ff3333;
+      margin: 12px 0;
+    }
+
+    .final-price .label {
+      color: #6688aa;
+      font-size: 0.8rem;
+    }
+
+    .final-price .amount {
+      font-size: 2rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #ff3333, #3366ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* ===== SUBMIT BUTTON ===== */
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 60px;
+      background: linear-gradient(135deg, #ff3333, #3366ff);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 1.1rem;
+      border: none;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-top: 6px;
+    }
+
+    .submit-btn:hover {
+      transform: scale(1.01);
+      box-shadow: 0 0 30px rgba(255, 50, 50, 0.2);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* ===== STATUS ===== */
+    .status {
+      text-align: center;
+      margin-top: 10px;
+      padding: 8px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #ffffff;
+    }
+
+    /* ===== SOCIAL ===== */
+    .social {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 14px;
+    }
+
+    .social a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 20px;
+      border-radius: 60px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: 0.2s;
+    }
+
+    .social a:hover {
+      border-color: #3366ff;
+      background: #0a0a0a;
+    }
+
+    .footer {
+      text-align: center;
+      color: #445566;
+      font-size: 0.7rem;
+      margin-top: 16px;
+      border-top: 1px solid #1a1a1a;
+      padding-top: 12px;
+    }
+
+    @media (max-width: 420px) {
+      .container { padding: 14px; }
+      .brand { font-size: 1.6rem; }
+      .nav-btn { padding: 8px 14px; font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ===== HEADER ===== -->
+  <div class="header">
+    <img src="https://i.ibb.co/N2g8gmq3/IMG-20260905-WA0000.jpg" alt="MY&U" class="logo">
+    <div class="brand">MY&amp;U</div>
+    <div class="sub">✨ أطفالنا يستحقون الأفضل</div>
+  </div>
+
+  <!-- ===== PRODUCT ===== -->
+  <div class="product-area">
+    <div class="flip-container" id="mainFlip">
+      <div class="flipper">
+        <div class="front">
+          <img id="mainImage" src="" alt="منتج">
+        </div>
+        <div class="back">
+          <h3 id="productName">طقم MY&U</h3>
+          <span class="price-tag" id="backPrice">700 ج.م</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="nav-btn" id="prevBtn">◀ السابق</button>
+      <button class="nav-btn" id="flipBtn">🔄 قلب</button>
+      <button class="nav-btn" id="nextBtn">التالي ▶</button>
+    </div>
+  </div>
+
+  <!-- ===== STEPS ===== -->
+  <div class="steps">
+    <div class="step active" id="step1">1. اختيار</div>
+    <div class="step" id="step2">2. العمر</div>
+    <div class="step" id="step3">3. البيانات</div>
+    <div class="step" id="step4">4. تأكيد</div>
+  </div>
+
+  <!-- ===== STEP 1: اختيار المنتج (تم) ===== -->
+
+  <!-- ===== STEP 2: العمر ===== -->
+  <div class="age-selector" id="ageSection">
+    <label>🎂 العمر:</label>
+    <select id="ageSelect">
+      <option value="2">2 سنة</option>
+      <option value="3">3 سنة</option>
+      <option value="4">4 سنة</option>
+      <option value="5">5 سنة</option>
+      <option value="6">6 سنة</option>
+      <option value="7" selected>7 سنة</option>
+      <option value="8">8 سنة</option>
+      <option value="9">9 سنة</option>
+      <option value="10">10 سنة</option>
+      <option value="11">11 سنة</option>
+      <option value="12">12 سنة</option>
+      <option value="13">13 سنة</option>
+      <option value="14">14 سنة</option>
+    </select>
+  </div>
+
+  <!-- ===== STEP 3: النموذج ===== -->
+  <div class="form-area" id="formSection">
+    <div class="form-group">
+      <label>👤 الاسم</label>
+      <input type="text" id="userName" placeholder="أحمد محمد">
+    </div>
+    <div class="form-group">
+      <label>📱 الهاتف</label>
+      <input type="tel" id="userPhone" placeholder="01012345678">
+    </div>
+    <div class="form-group">
+      <label>🏠 العنوان</label>
+      <input type="text" id="userAddress" placeholder="شارع النيل، مدينة نصر">
+    </div>
+    <div class="form-group">
+      <label>📍 معلم مميز (اختياري)</label>
+      <input type="text" id="userLandmark" placeholder="بجوار مسجد الحصري">
+    </div>
+    <div class="form-group">
+      <label>📝 ملاحظات (اختياري)</label>
+      <textarea id="userNote" placeholder="أي تفاصيل إضافية..."></textarea>
+    </div>
+  </div>
+
+  <!-- ===== STEP 4: السعر النهائي + تأكيد ===== -->
+  <div class="final-price" id="priceSection">
+    <div class="label">💰 السعر النهائي</div>
+    <div class="amount" id="finalPriceDisplay">700 ج.م</div>
+  </div>
+
+  <button class="submit-btn" id="submitBtn">✅ تأكيد الطلب</button>
+  <div class="status" id="orderStatus"></div>
+
+  <!-- ===== SOCIAL ===== -->
+  <div class="social">
+    <a href="https://www.instagram.com/_my_and_u_?igsi=MXExaG1ndGI1anpudA==" target="_blank">📸 إنستا</a>
+    <a href="https://www.facebook.com/share/1CTDLne8G8/" target="_blank">👍 فيسبوك</a>
+  </div>
+
+  <div class="footer">© 2026 MY&amp;U</div>
+</div>
+
+<script>
+  // =============================================
+  // 1. الصور (9 صور)
+  // =============================================
+  const images = [
+    'https://i.ibb.co/v6BH73tF/product7.jpg',
+    'https://i.ibb.co/v6pnryn8/product2.jpg',
+    'https://i.ibb.co/7JHnhyKM/product3.jpg',
+    'https://i.ibb.co/4wtxQ9Qy/product4.jpg',
+    'https://i.ibb.co/sdHxVc9P/product5.jpg',
+    'https://i.ibb.co/6cttgk7C/product6.jpg',
+    'https://i.ibb.co/prQnt1nF/product7.jpg',
+    'https://i.ibb.co/B2ZWt7T0/product8.jpg',
+    'https://i.ibb.co/5xjZj5K2/product9.jpg'
+  ];
+
+  let currentIndex = 0;
+  const mainImage = document.getElementById('mainImage');
+  const productName = document.getElementById('productName');
+  const backPrice = document.getElementById('backPrice');
+  const finalPriceDisplay = document.getElementById('finalPriceDisplay');
+  const ageSelect = document.getElementById('ageSelect');
+  const mainFlip = document.getElementById('mainFlip');
+
+  // =============================================
+  // 2. حساب السعر
+  // =============================================
+  function getPrice(age) {
+    return (age >= 2 && age <= 6) ? 650 : 700;
+  }
+
+  function updatePrice() {
+    const age = parseInt(ageSelect.value);
+    const price = getPrice(age);
+    const text = price + ' ج.م';
+    backPrice.textContent = text;
+    finalPriceDisplay.textContent = text;
+  }
+
+  ageSelect.addEventListener('change', function() {
+    updatePrice();
+    markStep(2);
+  });
+
+  // =============================================
+  // 3. عرض المنتج
+  // =============================================
+  function showProduct(index) {
+    mainImage.src = images[index];
+    mainImage.alt = 'منتج #' + (index + 1);
+    productName.textContent = 'طقم MY&U #' + (index + 1);
+    mainFlip.classList.remove('flipped');
+    updatePrice();
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', function() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    showProduct(currentIndex);
+    markStep(1);
+  });
+
+  document.getElementById('nextBtn').addEventListener('click', function() {
+    currentIndex = (currentIndex + 1) % images.length;
+    showProduct(currentIndex);
+    markStep(1);
+  });
+
+  document.getElementById('flipBtn').addEventListener('click', function() {
+    mainFlip.classList.toggle('flipped');
+  });
+
+  mainFlip.addEventListener('click', function() {
+    this.classList.toggle('flipped');
+  });
+
+  // =============================================
+  // 4. إدارة الخطوات
+  // =============================================
+  function markStep(step) {
+    for (let i = 1; i <= 4; i++) {
+      const el = document.getElementById('step' + i);
+      el.classList.remove('active', 'done');
+      if (i < step) el.classList.add('done');
+      else if (i === step) el.classList.add('active');
+    }
+  }
+
+  // =============================================
+  // 5. التحقق من اكتمال البيانات
+  // =============================================
+  function checkCompletion() {
+    const name = document.getElementById('userName').value.trim();
+    const phone = document.getElementById('userPhone').value.trim();
+    const address = document.getElementById('userAddress').value.trim();
+    
+    let filled = 0;
+    if (name) filled++;
+    if (phone) filled++;
+    if (address) filled++;
+    
+    if (filled >= 2) {
+      markStep(3);
+      return true;
+    } else {
+      markStep(2);
+      return false;
+    }
+  }
+
+  ['userName', 'userPhone', 'userAddress'].forEach(id => {
+    document.getElementById(id).addEventListener('input', checkCompletion);
+  });
+
+  // =============================================
+  // 6. إرسال الطلب
+  // =============================================
+  const submitBtn = document.getElementById('submitBtn');
+  const statusDiv = document.getElementById('orderStatus');
+
+  const BOT_TOKEN = '8771882548:AAEDfR3x86YFFSmH5xHp10_G8vstnitIr3Q';
+  const CHAT_ID_1 = '7292128411';
+  const CHAT_ID_2 = 'YOUR_SECOND_CHAT_ID';
+
+  submitBtn.addEventListener('click', async function() {
+    const name = document.getElementById('userName').value.trim();
+    const phone = document.getElementById('userPhone').value.trim();
+    const address = document.getElementById('userAddress').value.trim();
+    const landmark = document.getElementById('userLandmark').value.trim();
+    const note = document.getElementById('userNote').value.trim();
+    const age = ageSelect.value;
+    const price = getPrice(parseInt(age));
+    const product = productName.textContent;
+
+    if (!name || !phone || !address) {
+      statusDiv.textContent = '❌ املأ الاسم، الهاتف والعنوان';
+      statusDiv.style.color = '#ff6666';
+      return;
+    }
+
+    markStep(4);
+    submitBtn.disabled = true;
+    statusDiv.textContent = '⏳ جاري الإرسال...';
+    statusDiv.style.color = '#ffaa00';
+
+    const message = `🛍️ **طلب MY&U**\n\n` +
+      `👤 ${name}\n📱 ${phone}\n🏠 ${address}\n📍 ${landmark || 'لا يوجد'}\n📝 ${note || 'لا يوجد'}\n🎂 ${age} سنة\n💰 ${price} ج.م\n👕 ${product}\n🕐 ${new Date().toLocaleString('ar-EG')}`;
+
+    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+
+    try {
+      const res1 = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: CHAT_ID_1, text: message, parse_mode: 'Markdown' })
+      });
+      const data1 = await res1.json();
+
+      let data2 = { ok: true };
+      if (CHAT_ID_2 && CHAT_ID_2 !== 'YOUR_SECOND_CHAT_ID') {
+        const res2 = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chat_id: CHAT_ID_2, text: message, parse_mode: 'Markdown' })
+        });
+        data2 = await res2.json();
+      }
+
+      if (data1.ok && data2.ok) {
+        statusDiv.textContent = '✅ تم إرسال الطلب بنجاح!';
+        statusDiv.style.color = '#66ff66';
+        if (typeof fbq !== 'undefined') {
+          fbq('track', 'Purchase', { currency: 'EGP', value: price });
+        }
+        // مسح الحقول
+        document.getElementById('userName').value = '';
+        document.getElementById('userPhone').value = '';
+        document.getElementById('userAddress').value = '';
+        document.getElementById('userLandmark').value = '';
+        document.getElementById('userNote').value = '';
+        markStep(1);
+      } else {
+        statusDiv.textContent = '❌ حدث خطأ، حاول مرة أخرى';
+        statusDiv.style.color = '#ff6666';
+      }
+    } catch (error) {
+      statusDiv.textContent = '❌ خطأ في الاتصال';
+      statusDiv.style.color = '#ff6666';
+    }
+
+    submitBtn.disabled = false;
+  });
+
+  // =============================================
+  // 7. التشغيل
+  // =============================================
+  showProduct(0);
+  updatePrice();
+  markStep(1);
+</script>
+
+</body>
+</html>
